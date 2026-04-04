@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrapheneOS | Custom Builds Metadata</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #161616;
+            --accent-primary: #4f46e5;
+            --accent-secondary: #06b6d4;
+            --text-main: #f3f4f6;
+            --text-dim: #9ca3af;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        }
+
+        .card-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .variant-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .device-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .device-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .device-link:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(4px);
+        }
+
+        .device-link svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.5;
+            transition: opacity 0.2s ease;
+        }
+
+        .device-link:hover svg {
+            opacity: 1;
+            color: var(--accent-secondary);
+        }
+
+        .url-box {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .url-text {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--accent-secondary);
+        }
+
+        .copy-btn {
+            background: var(--accent-primary);
+            border: none;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .notice-banner {
+            background: linear-gradient(90deg, rgba(79, 70, 229, 0.1), rgba(6, 182, 212, 0.1));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notice-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            min-width: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notice-icon svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: var(--accent-secondary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .instructions {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .instructions h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .step-item {
+            position: relative;
+            padding-left: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-item::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--accent-secondary);
+        }
+
+        .step-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-item p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .highlight {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .container { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Msg's GrapheneOS Builds</h1>
+            <p class="subtitle">GrapheneOS variants with Custota integration for seamless OTA updates.</p>
+        </header>
+
+        <h2 class="section-title">Production Builds (User)</h2>
+        <div class="grid">
+            <!-- Clean Variant -->
+            <div class="card">
+                <div class="variant-badge" style="color: #10b981;">Vanilla</div>
+                <h3>Clean</h3>
+                <p>Official GrapheneOS experience with the addition of Custota support for third-party updates.</p>
+                <div class="url-box">
+                    <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS-test/user-clean/</span>
+                    <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS-test/user-clean/')">Copy</button>
+                </div>
+            </div>
+
+            <!-- Custom Variant -->
+            <div class="card">
+                <div class="variant-badge" style="color: #3b82f6;">Enhanced</div>
+                <h3>Custom</h3>
+                <p>Features custom refinements and system-level modifications, including WIP application isolation.</p>
+                <div class="url-box">
+                    <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS-test/user-custom/</span>
+                    <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS-test/user-custom/')">Copy</button>
+                </div>
+            </div>
+
+            <!-- Rooted Variant -->
+            <div class="card">
+                <div class="variant-badge" style="color: #ef4444;">Power User</div>
+                <h3>Rooted (On-Demand)</h3>
+                <p>Featuring KernelSU (SukiSU) + SUSFS. Root access is disabled by default; press VolUp at boot to enable. Includes custom features.</p>
+                <div class="url-box">
+                    <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS-test/user-rooted/</span>
+                    <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS-test/user-rooted/')">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="notice-banner" style="margin-bottom: 1rem;">
+            <span class="notice-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <div>
+                <strong style="display: block; margin-bottom: 0.25rem;">Apps Isolation (Work In Progress)</strong>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin: 0;">Allows you to prevent apps from seeing other installed apps. <strong>To activate it, go to the App Info of the desired application.</strong></p>
+            </div>
+        </div>
+
+        <div class="notice-banner" style="margin-bottom: 1rem;">
+            <span class="notice-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <div>
+                <strong style="display: block; margin-bottom: 0.25rem;">Full System Backups</strong>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin: 0;">Utilize the <strong>Rooted variant</strong> together with <strong>NeoBackup</strong> to perform complete system and data backups.</p>
+            </div>
+        </div>
+
+        <div class="notice-banner" style="margin-bottom: 1rem;">
+            <span class="notice-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+            </span>
+            <div>
+                <strong style="display: block; margin-bottom: 0.25rem;">Seamless Variant Switching</strong>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin: 0;">You can switch between Clean, Custom, and Rooted variants at any time via Custota <strong>without losing your data</strong>.</p>
+            </div>
+        </div>
+
+        <div class="notice-banner">
+            <span class="notice-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </span>
+            <div>
+                <strong style="display: block; margin-bottom: 0.25rem;">OTA Update Policy</strong>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin: 0;">Incremental OTAs are provided from the previous version; full OTAs are available for any other version.</p>
+            </div>
+        </div>
+
+        <section class="instructions">
+            <h2>
+                <span class="notice-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </span>
+                How to Switch Variants
+            </h2>
+            <div class="step-list">
+                <div class="step-item">
+                    <h4>Enable Debug Mode</h4>
+                    <p>Open <strong>Custota</strong> and navigate to the settings. <span class="highlight">Long-press on the version number</span> until the debug options appear.</p>
+                </div>
+                <div class="step-item">
+                    <h4>Activate Reinstall</h4>
+                    <p>Enable the <span class="highlight">"Reinstall"</span> toggle. This allows you to flash a different variant over your current installation.</p>
+                </div>
+                <div class="step-item">
+                    <h4>Update & Check</h4>
+                    <p>Paste the <span class="highlight">Update URL</span> into Custota and then <span class="highlight">Check for Updates</span> to begin the switching process.</p>
+                </div>
+                <div class="step-item">
+                    <h4>Finish</h4>
+                    <p>Once the switch is complete, <span class="highlight">deactivate the "Reinstall" option</span> to prevent reinstallations of the same variant.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="instructions">
+            <h2>
+                <span class="notice-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </span>
+                On-Demand Root Activation
+            </h2>
+            <div class="step-list">
+                <div class="step-item">
+                    <h4>Reboot Device</h4>
+                    <p>Restart your phone to initiate the root activation process.</p>
+                </div>
+                <div class="step-item">
+                    <h4>Activate Trigger</h4>
+                    <p>When the <span class="highlight">GrapheneOS logo</span> appears during boot, press <span class="highlight">Volume Up</span>.</p>
+                </div>
+                <div class="step-item">
+                    <h4>Root Enabled</h4>
+                    <p>The system will boot with root active for this session. Use the <span class="highlight">SukiSU Manager</span> to grant permissions.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Why On-Demand?
+                    </h4>
+                    <ul style="list-style: none; padding: 0; font-size: 0.9rem; color: var(--text-dim); line-height: 1.6;">
+                        <li style="margin-bottom: 0.5rem;"><strong>Security:</strong> Prevents persistent root access from being exploited when not needed.</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Stealth:</strong> Automatically returns to a non-rooted state after any reboot.</li>
+                        <li><strong>Maintenance:</strong> Enable only for specific tasks like full backups via NeoBackup.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        Managing Permissions
+                    </h4>
+                    <p style="font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; margin: 0;">Install the <strong>SukiSU Manager</strong> for granular control. Permissions are remembered by the kernel even if the manager app is uninstalled.</p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(79, 70, 229, 0.05); border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem;">
+                        <strong style="display: block; margin-bottom: 0.5rem; color: var(--primary);">NeoBackup & SukiSU Config:</strong>
+                        <ul style="list-style: none; padding: 0; margin: 0; color: var(--text-dim); line-height: 1.4;">
+                            <li>• App profile: <strong>Custom</strong></li>
+                            <li>• Capabilities: <strong>DAC_OVERRIDE, SYS_ADMIN, SYS_CHROOT, SYS_PTRACE</strong></li>
+                            <li>• SELinux context: <code>u:r:su:s0</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Msg's GrapheneOS Builds. Not affiliated with the official GrapheneOS project.</p>
+            <div class="footer-links">
+                <a href="https://github.com/mgiganto/msg-GrapheneOS-test">GitHub Repository</a>
+                <a href="https://grapheneos.org/">GrapheneOS Official</a>
+                <a href="https://github.com/chenxiaolong/Custota">Custota Project</a>
+                <a href="https://github.com/SukiSU-Ultra/SukiSU-Ultra">SukiSU-Ultra</a>
+                <a href="https://gitlab.com/simonpunk/susfs4ksu">SUSFS</a>
+            </div>
+        </footer>
+    </div>
+    <script>
+        function copyUrl(btn, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied!';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
