@@ -327,6 +327,198 @@
             h1 { font-size: 2.5rem; }
             .container { padding: 2rem 1rem; }
         }
+
+        /* Gallery Styles */
+        .gallery-wrapper {
+            margin-top: 2rem;
+        }
+
+        .gallery-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding: 0.5rem 0 1.5rem;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-primary) var(--glass);
+        }
+
+        .gallery-container::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .gallery-container::-webkit-scrollbar-track {
+            background: var(--glass);
+            border-radius: 10px;
+        }
+
+        .gallery-container::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 10px;
+        }
+
+        .gallery-wrapper {
+            position: relative;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .gallery-nav-btn {
+            position: absolute;
+            top: calc(50% - 12px); /* Centered relative to images, accounting for scrollbar padding */
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(13, 13, 13, 0.8);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-wrapper:hover .gallery-nav-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gallery-nav-btn:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-secondary);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-nav-btn.prev {
+            left: -12px;
+        }
+
+        .gallery-nav-btn.next {
+            right: -12px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-nav-btn { display: none; }
+        }
+
+        .gallery-item {
+            flex: 0 0 180px;
+            aspect-ratio: 9 / 19.5;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            scroll-snap-align: start;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-secondary);
+            box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            cursor: zoom-out;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            cursor: default;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--accent-primary);
+            transform: scale(1.1);
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            z-index: 2010;
+        }
+
+        .modal-nav:hover {
+            background: var(--accent-primary);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .modal-prev { left: 2rem; }
+        .modal-next { right: 2rem; }
+
+        @media (max-width: 768px) {
+            .modal-nav { width: 40px; height: 40px; font-size: 1.2rem; }
+            .modal-prev { left: 1rem; }
+            .modal-next { right: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -344,8 +536,8 @@
                 <h3>Clean</h3>
                 <p>Official GrapheneOS experience with the addition of Custota support for third-party updates.</p>
                 <div class="url-box">
-                    <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS-test/user-clean/</span>
-                    <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS-test/user-clean/')">Copy</button>
+                    <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS/user-clean/</span>
+                    <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS/user-clean/')">Copy</button>
                 </div>
             </div>
 
@@ -355,8 +547,8 @@
                 <h3>Custom</h3>
                 <p>Features custom refinements and system-level modifications, including WIP application isolation.</p>
                 <div class="url-box">
-                    <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS-test/user-custom/</span>
-                    <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS-test/user-custom/')">Copy</button>
+                    <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS/user-custom/</span>
+                    <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS/user-custom/')">Copy</button>
                 </div>
             </div>
 
@@ -366,20 +558,94 @@
                 <h3>Rooted (On-Demand)</h3>
                 <p>Featuring KernelSU (SukiSU) + SUSFS. Root access is disabled by default; press VolUp at boot to enable. Includes custom features.</p>
                 <div class="url-box">
-                    <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS-test/user-rooted/</span>
-                    <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS-test/user-rooted/')">Copy</button>
+                    <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS/user-rooted/</span>
+                    <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS/user-rooted/')">Copy</button>
                 </div>
             </div>
         </div>
 
-        <div class="notice-banner" style="margin-bottom: 1rem;">
-            <span class="notice-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </span>
-            <div>
-                <strong style="display: block; margin-bottom: 0.25rem;">Apps Isolation (Work In Progress)</strong>
-                <p style="font-size: 0.9rem; color: var(--text-dim); margin: 0;">Allows you to prevent apps from seeing other installed apps. <strong>To activate it, go to the App Info of the desired application.</strong></p>
+        <div class="notice-banner" style="margin-bottom: 3rem; display: block;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                <span class="notice-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </span>
+                <div>
+                    <strong style="display: block; margin-bottom: 0.25rem;">Apps Isolation (Work In Progress)</strong>
+                    <p style="font-size: 0.9rem; color: var(--text-dim); margin: 0;">Allows you to prevent apps from seeing other installed apps. <strong>To activate it, go to the App Info of the desired application.</strong></p>
+                </div>
             </div>
+            
+            <div class="gallery-wrapper">
+                <div class="gallery-nav-btn prev" onclick="scrollGallery(-1)">&#10094;</div>
+                <div class="gallery-container" id="isolation-gallery">
+                    <div class="gallery-item" onclick="openLightbox(0)">
+                        <img src="img/Screenshot_20260407-144108.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(1)">
+                        <img src="img/Screenshot_20260407-144137.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(2)">
+                        <img src="img/Screenshot_20260407-144343.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(3)">
+                        <img src="img/Screenshot_20260407-144351.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(4)">
+                        <img src="img/Screenshot_20260407-150756.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(5)">
+                        <img src="img/Screenshot_20260407-150912.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(6)">
+                        <img src="img/Screenshot_20260407-150932.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(7)">
+                        <img src="img/Screenshot_20260407-150941.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(8)">
+                        <img src="img/Screenshot_20260407-151022.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(9)">
+                        <img src="img/Screenshot_20260407-151110.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(10)">
+                        <img src="img/Screenshot_20260407-151121.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(11)">
+                        <img src="img/Screenshot_20260407-151257.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(12)">
+                        <img src="img/Screenshot_20260407-151303.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(13)">
+                        <img src="img/Screenshot_20260407-151310.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(14)">
+                        <img src="img/Screenshot_20260407-151317.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(15)">
+                        <img src="img/Screenshot_20260407-151322.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(16)">
+                        <img src="img/Screenshot_20260407-151341.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(17)">
+                        <img src="img/Screenshot_20260407-151455.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox(18)">
+                        <img src="img/Screenshot_20260407-151646.png" alt="Apps Isolation Screenshot" loading="lazy">
+                    </div>
+                </div>
+                <div class="gallery-nav-btn next" onclick="scrollGallery(1)">&#10095;</div>
+            </div>
+        </div>
+
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="modal" onclick="closeLightbox()">
+            <div class="modal-close">&times;</div>
+            <div class="modal-nav modal-prev" onclick="prevImage(event)">&#10094;</div>
+            <div class="modal-nav modal-next" onclick="nextImage(event)">&#10095;</div>
+            <img id="lightbox-img" class="modal-content" src="" alt="Full size screenshot" onclick="event.stopPropagation()">
         </div>
 
         <div class="notice-banner" style="margin-bottom: 1rem;">
@@ -494,7 +760,7 @@
         <footer>
             <p>&copy; 2026 Msg's GrapheneOS Builds. Not affiliated with the official GrapheneOS project.</p>
             <div class="footer-links">
-                <a href="https://github.com/mgiganto/msg-GrapheneOS-test">GitHub Repository</a>
+                <a href="https://github.com/mgiganto/msg-GrapheneOS">GitHub Repository</a>
                 <a href="https://grapheneos.org/">GrapheneOS Official</a>
                 <a href="https://github.com/chenxiaolong/Custota">Custota Project</a>
                 <a href="https://github.com/SukiSU-Ultra/SukiSU-Ultra">SukiSU-Ultra</a>
@@ -512,6 +778,55 @@
                 }, 2000);
             });
         }
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const galleryImages = Array.from(document.querySelectorAll('.gallery-item img')).map(img => img.src);
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateLightbox() {
+            lightboxImg.src = galleryImages[currentIndex];
+        }
+
+        function nextImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex + 1) % galleryImages.length;
+            updateLightbox();
+        }
+
+        function prevImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateLightbox();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function scrollGallery(direction) {
+            const container = document.getElementById('isolation-gallery');
+            const scrollAmount = container.clientWidth * 0.8;
+            container.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+        });
     </script>
 </body>
 </html>
