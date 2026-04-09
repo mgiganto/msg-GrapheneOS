@@ -1,7 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040300/oriole-ota_update-2026040300-user-rooted.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040300/oriole-ota_update-2026040300-user-rooted.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/oriole-ota_update-2026040600-user-rooted.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/oriole-ota_update-2026040600-user-rooted.zip.csig"
+  },
+  "incremental": {
+    "d3caa8260e5d571ca9f95c954c5709eea7a89f8da632e64123e413a10207af2d": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/oriole-incremental-2026040300-2026040600-user-rooted.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/oriole-incremental-2026040300-2026040600-user-rooted.zip.csig"
+    }
   }
 }
