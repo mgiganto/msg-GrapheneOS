@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/rango-ota_update-2026040600-user-custom.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/rango-ota_update-2026040600-user-custom.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040800/rango-ota_update-2026040800-user-custom.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040800/rango-ota_update-2026040800-user-custom.zip.csig"
   },
   "incremental": {
-    "cdcc09ccd675ce2a85170ef3f05777035a55683dbb7aaac4b0a17e6c341f260b": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/rango-incremental-2026040300-2026040600-user-custom.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/rango-incremental-2026040300-2026040600-user-custom.zip.csig"
+    "e247ddefd3417593152c19102bd3ae261dbbd7fd96e3798b2cc63d50876968d9": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040800/rango-incremental-2026040600-2026040800-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040800/rango-incremental-2026040600-2026040800-user-custom.zip.csig"
     }
   }
 }

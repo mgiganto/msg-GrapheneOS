@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/raven-ota_update-2026040600-user-rooted.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/raven-ota_update-2026040600-user-rooted.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040800/raven-ota_update-2026040800-user-rooted.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040800/raven-ota_update-2026040800-user-rooted.zip.csig"
   },
   "incremental": {
-    "0c0c3b8d45e81d72e91fcd99288f7227c2ac2f23ee3aa71e0ab038b6c5e4939d": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/raven-incremental-2026040300-2026040600-user-rooted.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040600/raven-incremental-2026040300-2026040600-user-rooted.zip.csig"
+    "9adb44a2513e77ec60d01c32fdd2fda4c578aeebd44c59cbe56ecd502010fc55": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040800/raven-incremental-2026040600-2026040800-user-rooted.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026040800/raven-incremental-2026040600-2026040800-user-rooted.zip.csig"
     }
   }
 }
