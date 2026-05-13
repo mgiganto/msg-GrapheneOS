@@ -1,13 +1,8 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026042100/husky-ota_update-2026042100-user-custom.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026042100/husky-ota_update-2026042100-user-custom.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026050900/husky-ota_update-2026050900-user-custom.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026050900/husky-ota_update-2026050900-user-custom.zip.csig"
   },
-  "incremental": {
-    "a1d960e062d46aa8cd26dd760c3a59507ca7d537166adcf13d074cb8b896dc27": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026042100/husky-incremental-2026040800-2026042100-user-custom.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026042100/husky-incremental-2026040800-2026042100-user-custom.zip.csig"
-    }
-  }
+  "incremental": {}
 }
