@@ -1,8 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026050900/caiman-ota_update-2026050900-user-custom.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026050900/caiman-ota_update-2026050900-user-custom.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026052400/caiman-ota_update-2026052400-user-custom.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026052400/caiman-ota_update-2026052400-user-custom.zip.csig"
   },
-  "incremental": {}
+  "incremental": {
+    "398497138c99939ba92fcd3ad1d03158e6cae870c8908ff1b183f2e24be8b11f": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026052400/caiman-incremental-2026050900-2026052400-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026052400/caiman-incremental-2026050900-2026052400-user-custom.zip.csig"
+    }
+  }
 }
