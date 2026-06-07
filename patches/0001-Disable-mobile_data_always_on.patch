@@ -1,0 +1,25 @@
+From 17e5554efac9f9ea383a3d4bb0b913947e706180 Mon Sep 17 00:00:00 2001
+From: Manuel Giganto <mgigantoregistros+git@gmail.com>
+Date: Sun, 7 Jun 2026 14:57:17 +0000
+Subject: [PATCH] Disable mobile_data_always_on
+
+---
+ packages/SettingsProvider/res/values/defaults.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SettingsProvider/res/values/defaults.xml b/packages/SettingsProvider/res/values/defaults.xml
+index c99f2416a..8de47ba70 100644
+--- a/packages/SettingsProvider/res/values/defaults.xml
++++ b/packages/SettingsProvider/res/values/defaults.xml
+@@ -206,7 +206,7 @@
+     <string name="def_backup_manager_constants"></string>
+ 
+     <!-- Default setting for Settings.Global.MOBILE_DATA_ALWAYS_ON -->
+-    <bool name="def_mobile_data_always_on">true</bool>
++    <bool name="def_mobile_data_always_on">false</bool>
+ 
+     <!-- Default for Settings.Secure.BACKUP_LOCAL_TRANSPORT_PARAMETERS -->
+     <string name="def_backup_local_transport_parameters"></string>
+-- 
+2.47.3
+
