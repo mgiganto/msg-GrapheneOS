@@ -1,24 +1,26 @@
-From 7b39bdbfa1a47cb53d7227b256ca6f1d1bb977e1 Mon Sep 17 00:00:00 2001
+From 46952c48610396f275587c979511060e88ac8841 Mon Sep 17 00:00:00 2001
 From: Manuel Giganto <mgigantoregistros+git@gmail.com>
-Date: Sun, 7 Jun 2026 23:23:27 +0000
+Date: Tue, 9 Jun 2026 11:53:02 +0000
 Subject: [PATCH] Actualizar AppsScopes a implementacion v1.7 - FULL
 
 ---
  .../0001-AppsScopes-implementacion-v1.7.patch | 7245 +++++++++++++++++
  ...pe-Integrate-AppsScope-shortcut-v1.7.patch |   95 +
- ...grate-configuration-in-Settings-v1.7.patch | 1628 ++++
- 3 files changed, 8968 insertions(+)
+ ...egrar-configuracion-en-Settings-v1.7.patch | 1596 ++++
+ .../0001-AppsScopes-v1.7-Network.patch        |  302 +
+ 4 files changed, 9238 insertions(+)
  create mode 100644 variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.patch
  create mode 100644 variantes/parches/appsScopes/packages/apps/Launcher3/0001-AppsScope-Integrate-AppsScope-shortcut-v1.7.patch
- create mode 100644 variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrate-configuration-in-Settings-v1.7.patch
+ create mode 100644 variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.patch
+ create mode 100644 variantes/parches/appsScopes/packages/modules/Connectivity/0001-AppsScopes-v1.7-Network.patch
 
 diff --git a/variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.patch b/variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.patch
 new file mode 100644
-index 0000000..3d6da8a
+index 0000000..e326b37
 --- /dev/null
 +++ b/variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.patch
 @@ -0,0 +1,7245 @@
-+From 698401c793b3a24d122d62230cd311df0da1ce02 Mon Sep 17 00:00:00 2001
++From 600cc177138848cd1930aa912f410afcc59c30ca Mon Sep 17 00:00:00 2001
 +From: Manuel Giganto <mgigantoregistros+git@gmail.com>
 +Date: Thu, 16 Apr 2026 22:25:21 +0000
 +Subject: [PATCH] AppsScopes implementacion v1.7
@@ -124,10 +126,10 @@ index 0000000..3d6da8a
 + create mode 100644 services/core/java/com/android/server/pm/AppsScopeStorage.java
 +
 +diff --git a/core/api/system-current.txt b/core/api/system-current.txt
-+index 5aec7caaa..09b4b4f38 100644
++index 5157bcd33..e31285e8f 100644
 +--- a/core/api/system-current.txt
 ++++ b/core/api/system-current.txt
-+@@ -4375,7 +4375,9 @@ package android.content.pm {
++@@ -4371,7 +4371,9 @@ package android.content.pm {
 +     method public boolean apply();
 +     method @NonNull public android.content.pm.GosPackageState.Editor clearFlag(int);
 +     method @NonNull public android.content.pm.GosPackageState.Editor clearPackageFlag(int);
@@ -1265,10 +1267,10 @@ index 0000000..3d6da8a
 +     }
 + }
 +diff --git a/services/core/java/com/android/server/am/ActivityManagerService.java b/services/core/java/com/android/server/am/ActivityManagerService.java
-+index fb22ff7f7..5372866d6 100644
++index e7d5fb29c..73a5c38dc 100644
 +--- a/services/core/java/com/android/server/am/ActivityManagerService.java
 ++++ b/services/core/java/com/android/server/am/ActivityManagerService.java
-+@@ -491,6 +491,7 @@ import com.android.server.uri.NeededUriGrants;
++@@ -492,6 +492,7 @@ import com.android.server.uri.NeededUriGrants;
 + import com.android.server.uri.UriGrantsManagerInternal;
 + import com.android.server.utils.AnrTimer;
 + import com.android.server.utils.PriorityDump;
@@ -1276,7 +1278,7 @@ index 0000000..3d6da8a
 + import com.android.server.utils.Slogf;
 + import com.android.server.utils.TimingsTraceAndSlog;
 + import com.android.server.vr.VrManagerInternal;
-+@@ -10200,6 +10201,19 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -10204,6 +10205,19 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                 }
 +             });
 +         }
@@ -1296,7 +1298,7 @@ index 0000000..3d6da8a
 + 
 +         return errList[0];
 +     }
-+@@ -10217,11 +10231,24 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -10221,11 +10235,24 @@ public class ActivityManagerService extends IActivityManager.Stub
 +         final boolean allUids = mAtmInternal.isGetTasksAllowed(
 +                 "getRunningAppProcesses", Binder.getCallingPid(), callingUid);
 + 
@@ -1322,7 +1324,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     @Override
-+@@ -10587,6 +10614,10 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -10591,6 +10618,10 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             boolean dumpNormalPriority, int dumpAppId, boolean dumpProxies) {
 + 
 +         ActiveServices.ServiceDumper sdumper;
@@ -1333,7 +1335,7 @@ index 0000000..3d6da8a
 + 
 +         synchronized(this) {
 +             mConstants.dump(pw);
-+@@ -10758,6 +10789,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -10762,6 +10793,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             }
 +             mComponentAliasResolver.dump(pw);
 +         }
@@ -1345,7 +1347,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     /**
-+@@ -10854,6 +10890,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -10858,6 +10894,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             }
 +         }
 + 
@@ -1357,7 +1359,7 @@ index 0000000..3d6da8a
 +         final long origId = Binder.clearCallingIdentity();
 + 
 +         if (useProto) {
-+@@ -11184,6 +11225,13 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11188,6 +11229,13 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             }
 +         }
 +         Binder.restoreCallingIdentity(origId);
@@ -1371,7 +1373,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     void dumpAssociationsLocked(FileDescriptor fd, PrintWriter pw, String[] args,
-+@@ -11345,12 +11393,17 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11349,12 +11397,17 @@ public class ActivityManagerService extends IActivityManager.Stub
 +         final int size = mActiveInstrumentation.size();
 +         if (size > 0) {
 +             boolean printed = false;
@@ -1389,7 +1391,7 @@ index 0000000..3d6da8a
 +                 if (!printed) {
 +                     if (needSep) {
 +                         pw.println();
-+@@ -11363,6 +11416,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11367,6 +11420,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                 pw.println(ai);
 +                 ai.dump(pw, "      ");
 +             }
@@ -1401,7 +1403,7 @@ index 0000000..3d6da8a
 +         }
 +         return needSep;
 +     }
-+@@ -11371,6 +11429,12 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11375,6 +11433,12 @@ public class ActivityManagerService extends IActivityManager.Stub
 +     @GuardedBy({"this", "mProcLock"})
 +     void dumpOtherProcessesInfoLSP(FileDescriptor fd, PrintWriter pw,
 +             boolean dumpAll, String dumpPackage, int dumpAppId, int numPers, boolean needSep) {
@@ -1414,7 +1416,7 @@ index 0000000..3d6da8a
 +         if (dumpAll || dumpPackage != null) {
 +             final SparseArray<ProcessRecord> pidToProcess = new SparseArray<>();
 +             synchronized (mPidsSelfLocked) {
-+@@ -11381,6 +11445,7 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11385,6 +11449,7 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                     if (dumpPackage != null && !r.getPkgList().containsKey(dumpPackage)) {
 +                         continue;
 +                     }
@@ -1422,7 +1424,7 @@ index 0000000..3d6da8a
 +                     if (!printed) {
 +                         if (needSep) pw.println();
 +                         needSep = true;
-+@@ -11401,6 +11466,7 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11405,6 +11470,7 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                             && !r.getPkgList().containsKey(dumpPackage)) {
 +                         continue;
 +                     }
@@ -1430,7 +1432,7 @@ index 0000000..3d6da8a
 +                     if (!printed) {
 +                         if (needSep) pw.println();
 +                         needSep = true;
-+@@ -11433,6 +11499,7 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11437,6 +11503,7 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                             || !r.getPkgList().containsKey(dumpPackage))) {
 +                         continue;
 +                     }
@@ -1438,7 +1440,7 @@ index 0000000..3d6da8a
 +                     if (!printed) {
 +                         if (needSep) pw.println();
 +                         needSep = true;
-+@@ -11475,12 +11542,19 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11479,12 +11546,19 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                 mAppProfiler.getTestPssMode(), mWakefulness.get());
 + 
 +         if (dumpAll && mProcessList.mPendingStarts.size() > 0) {
@@ -1463,7 +1465,7 @@ index 0000000..3d6da8a
 +             }
 +         }
 +         if (dumpAll) {
-+@@ -11491,9 +11565,16 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11495,9 +11569,16 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                     + Arrays.toString(mDeviceIdleExceptIdleAllowlist));
 +             pw.println("  mDeviceIdleTempAllowlist=" + Arrays.toString(mDeviceIdleTempAllowlist));
 +             if (mPendingTempAllowlist.size() > 0) {
@@ -1481,7 +1483,7 @@ index 0000000..3d6da8a
 +                     pw.print("    ");
 +                     UserHandle.formatUid(pw, ptw.targetUid);
 +                     pw.print(": ");
-+@@ -11508,12 +11589,20 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11512,12 +11593,20 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                     pw.print(ptw.callingUid);
 +                 }
 +             }
@@ -1503,7 +1505,7 @@ index 0000000..3d6da8a
 +                 pw.print("    " + UserHandle.formatUid(uid) + ": ");
 +                 entry.second.dump(pw);
 +                 pw.print(" expiration=");
-+@@ -11526,11 +11615,20 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11530,11 +11619,20 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             });
 + 
 +             if (!mProcessList.mAppsInBackgroundRestricted.isEmpty()) {
@@ -1526,7 +1528,7 @@ index 0000000..3d6da8a
 +                 }
 +             }
 +         }
-+@@ -11538,13 +11636,17 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11542,13 +11640,17 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                 || mOrigWaitForDebugger) {
 +             if (dumpPackage == null || dumpPackage.equals(mDebugApp)
 +                     || dumpPackage.equals(mOrigDebugApp)) {
@@ -1550,7 +1552,7 @@ index 0000000..3d6da8a
 +             }
 +         }
 +         synchronized (mAppProfiler.mProfilerLock) {
-+@@ -11552,21 +11654,29 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11556,21 +11658,29 @@ public class ActivityManagerService extends IActivityManager.Stub
 +         }
 +         if (mTrackAllocationApp != null) {
 +             if (dumpPackage == null || dumpPackage.equals(mTrackAllocationApp)) {
@@ -1588,7 +1590,7 @@ index 0000000..3d6da8a
 +             }
 +         }
 +         if (dumpPackage == null) {
-+@@ -11603,6 +11713,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11607,6 +11717,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             }
 +         }
 +         pw.println("  mForceBackgroundCheck=" + mForceBackgroundCheck);
@@ -1600,7 +1602,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     private void dumpUsers(PrintWriter pw) {
-+@@ -11613,6 +11728,10 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11617,6 +11732,10 @@ public class ActivityManagerService extends IActivityManager.Stub
 +     @GuardedBy({"this", "mProcLock"})
 +     void writeOtherProcessesInfoToProtoLSP(ProtoOutputStream proto, String dumpPackage,
 +             int dumpAppId, int numPers) {
@@ -1611,7 +1613,7 @@ index 0000000..3d6da8a
 +         for (int i = 0, size = mActiveInstrumentation.size(); i < size; i++) {
 +             ActiveInstrumentation ai = mActiveInstrumentation.get(i);
 +             if (dumpPackage != null && !ai.mClass.getPackageName().equals(dumpPackage)
-+@@ -11757,6 +11876,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11761,6 +11880,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             long now = SystemClock.uptimeMillis();
 +             ProtoUtils.toDuration(proto, ActivityManagerServiceDumpProcessesProto.LAST_IDLE_TIME, mLastIdleTime, now);
 +         }
@@ -1623,7 +1625,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     private boolean reportLmkKillAtOrBelow(PrintWriter pw, int oom_adj) {
-+@@ -11873,6 +11997,10 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11877,6 +12001,10 @@ public class ActivityManagerService extends IActivityManager.Stub
 + 
 +     void dumpAllowedAssociationsLocked(FileDescriptor fd, PrintWriter pw, String[] args,
 +             int opti, boolean dumpAll, String dumpPackage) {
@@ -1634,7 +1636,7 @@ index 0000000..3d6da8a
 +         pw.println(
 +                 "ACTIVITY MANAGER ALLOWED ASSOCIATION STATE (dumpsys activity"
 +                     + " allowed-associations)");
-+@@ -11880,6 +12008,7 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11884,6 +12012,7 @@ public class ActivityManagerService extends IActivityManager.Stub
 +         if (mAllowedAssociations != null) {
 +             for (int i = 0; i < mAllowedAssociations.size(); i++) {
 +                 final String pkg = mAllowedAssociations.keyAt(i);
@@ -1642,7 +1644,7 @@ index 0000000..3d6da8a
 +                 final ArraySet<String> asc =
 +                         mAllowedAssociations.valueAt(i).getAllowedPackageAssociations();
 +                 if (!printed) {
-+@@ -11904,6 +12033,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11908,6 +12037,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +         if (!printed) {
 +             pw.println("  (No association restrictions)");
 +         }
@@ -1654,7 +1656,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     void dumpPermissions(FileDescriptor fd, PrintWriter pw, String[] args,
-+@@ -11919,11 +12053,16 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11923,11 +12057,16 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             String prefix, String normalLabel, String persistentLabel,
 +             String dumpPackage) {
 +         int numPers = 0;
@@ -1671,7 +1673,7 @@ index 0000000..3d6da8a
 +             pw.println(String.format("%s%s #%2d: %s",
 +                     prefix, (r.isPersistent() ? persistentLabel : normalLabel),
 +                     i, r.toString()));
-+@@ -11932,6 +12071,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -11936,6 +12075,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             }
 +         }
 +         return numPers;
@@ -1683,7 +1685,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     ArrayList<ProcessRecord> collectProcesses(PrintWriter pw, int start, boolean allPkgs,
-+@@ -12413,11 +12557,28 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -12417,11 +12561,28 @@ public class ActivityManagerService extends IActivityManager.Stub
 +         System.arraycopy(args, opti, innerArgs, 0, args.length-opti);
 + 
 +         ArrayList<ProcessRecord> procs = collectProcesses(pw, opti, opts.packages, args);
@@ -1712,7 +1714,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     @NeverCompile // Avoid size overhead of debugging code.
-+@@ -12428,6 +12589,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -12432,6 +12593,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +         long realtime = SystemClock.elapsedRealtime();
 +         final long[] tmpLong = new long[3];
 + 
@@ -1724,7 +1726,7 @@ index 0000000..3d6da8a
 +         if (procs == null) {
 +             // No Java processes.  Maybe they want to print a native process.
 +             String proc = "N/A";
-+@@ -12446,6 +12612,7 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -12450,6 +12616,7 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                     mAppProfiler.forAllCpuStats((st) -> {
 +                         if (st.pid == fFindPid || (st.baseName != null
 +                                 && st.baseName.equals(innerArgs[0]))) {
@@ -1732,7 +1734,7 @@ index 0000000..3d6da8a
 +                             nativeProcs.add(st);
 +                         }
 +                     });
-+@@ -12711,6 +12878,8 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -12715,6 +12882,8 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             final Debug.MemoryInfo[] memInfos = new Debug.MemoryInfo[1];
 +             mAppProfiler.forAllCpuStats((st) -> {
 +                 if (st.vsize > 0 && procMemsMap.indexOfKey(st.pid) < 0) {
@@ -1741,7 +1743,7 @@ index 0000000..3d6da8a
 +                     long memtrackGraphics = 0;
 +                     long memtrackGl = 0;
 +                     if (memInfos[0] == null) {
-+@@ -13117,6 +13286,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -13121,6 +13290,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                 }
 +             }
 +         }
@@ -1753,7 +1755,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     @NeverCompile // Avoid size overhead of debugging code.
-+@@ -13127,6 +13301,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -13131,6 +13305,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +         final long realtimeMs = SystemClock.elapsedRealtime();
 +         final long[] tmpLong = new long[3];
 + 
@@ -1765,7 +1767,7 @@ index 0000000..3d6da8a
 +         if (procs == null) {
 +             // No Java processes.  Maybe they want to print a native process.
 +             String proc = "N/A";
-+@@ -13145,6 +13324,7 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -13149,6 +13328,7 @@ public class ActivityManagerService extends IActivityManager.Stub
 +                     mAppProfiler.forAllCpuStats((st) -> {
 +                         if (st.pid == fFindPid || (st.baseName != null
 +                                 && st.baseName.equals(innerArgs[0]))) {
@@ -1773,7 +1775,7 @@ index 0000000..3d6da8a
 +                             nativeProcs.add(st);
 +                         }
 +                     });
-+@@ -13384,6 +13564,7 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -13388,6 +13568,7 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             final Debug.MemoryInfo[] memInfos = new Debug.MemoryInfo[1];
 +             mAppProfiler.forAllCpuStats((st) -> {
 +                 if (st.vsize > 0 && procMemsMap.indexOfKey(st.pid) < 0) {
@@ -1781,7 +1783,7 @@ index 0000000..3d6da8a
 +                     if (memInfos[0] == null) {
 +                         memInfos[0] = new Debug.MemoryInfo();
 +                     }
-+@@ -13606,6 +13787,11 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -13610,6 +13791,11 @@ public class ActivityManagerService extends IActivityManager.Stub
 +         }
 + 
 +         proto.flush();
@@ -1793,7 +1795,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +     static void appendBasicMemEntry(StringBuilder sb, int oomAdj, int procState, long pss,
-+@@ -13793,10 +13979,24 @@ public class ActivityManagerService extends IActivityManager.Stub
++@@ -13797,10 +13983,24 @@ public class ActivityManagerService extends IActivityManager.Stub
 +             INTERACT_ACROSS_USERS_FULL, callingUid) == PERMISSION_GRANTED);
 +         final boolean allowed = mAtmInternal.isGetTasksAllowed("getServices",
 +                 Binder.getCallingPid(), callingUid);
@@ -3507,10 +3509,10 @@ index 0000000..3d6da8a
 +         }
 +     }
 +diff --git a/services/core/java/com/android/server/appop/AppOpsService.java b/services/core/java/com/android/server/appop/AppOpsService.java
-+index 6c0e56aea..2eaad3afe 100644
++index 106c83cbc..97229d839 100644
 +--- a/services/core/java/com/android/server/appop/AppOpsService.java
 ++++ b/services/core/java/com/android/server/appop/AppOpsService.java
-+@@ -176,6 +176,7 @@ import com.android.modules.utils.TypedXmlSerializer;
++@@ -177,6 +177,7 @@ import com.android.modules.utils.TypedXmlSerializer;
 + import com.android.server.IoThread;
 + import com.android.server.LocalManagerRegistry;
 + import com.android.server.LocalServices;
@@ -3518,7 +3520,7 @@ index 0000000..3d6da8a
 + import com.android.server.LockGuard;
 + import com.android.server.StorageManagerInternal;
 + import com.android.server.SystemServiceManager;
-+@@ -1742,7 +1743,7 @@ public class AppOpsService extends IAppOpsService.Stub {
++@@ -1744,7 +1745,7 @@ public class AppOpsService extends IAppOpsService.Stub {
 +         int totalAttributedOpEntryCount = 0;
 + 
 +         if (ops == null) {
@@ -3527,7 +3529,7 @@ index 0000000..3d6da8a
 +             for (int j = 0; j < pkgOps.size(); j++) {
 +                 Op curOp = pkgOps.valueAt(j);
 +                 if (opRestrictsRead(curOp.op) && !shouldReturnRestrictedAppOps) {
-+@@ -1760,7 +1761,7 @@ public class AppOpsService extends IAppOpsService.Stub {
++@@ -1762,7 +1763,7 @@ public class AppOpsService extends IAppOpsService.Stub {
 +                 Op curOp = pkgOps.get(ops[j]);
 +                 if (curOp != null) {
 +                     if (resOps == null) {
@@ -3536,7 +3538,7 @@ index 0000000..3d6da8a
 +                     }
 +                     if (opRestrictsRead(curOp.op) && !shouldReturnRestrictedAppOps) {
 +                         continue;
-+@@ -1840,6 +1841,10 @@ public class AppOpsService extends IAppOpsService.Stub {
++@@ -1842,6 +1843,10 @@ public class AppOpsService extends IAppOpsService.Stub {
 +                 Binder.getCallingUid(), null) == PackageManager.PERMISSION_GRANTED;
 + 
 +         ArrayList<AppOpsManager.PackageOps> res = null;
@@ -3547,7 +3549,7 @@ index 0000000..3d6da8a
 +         synchronized (this) {
 +             final int uidStateCount = mUidStates.size();
 +             for (int i = 0; i < uidStateCount; i++) {
-+@@ -1847,6 +1852,7 @@ public class AppOpsService extends IAppOpsService.Stub {
++@@ -1849,6 +1854,7 @@ public class AppOpsService extends IAppOpsService.Stub {
 +                 if (uidState.pkgOps.isEmpty()) {
 +                     continue;
 +                 }
@@ -3555,7 +3557,7 @@ index 0000000..3d6da8a
 +                 // Caller can always see their packages and with a permission all.
 +                 if (!hasAllPackageAccess && callingUid != uidState.uid) {
 +                     continue;
-+@@ -1869,6 +1875,11 @@ public class AppOpsService extends IAppOpsService.Stub {
++@@ -1871,6 +1877,11 @@ public class AppOpsService extends IAppOpsService.Stub {
 +                 }
 +             }
 +         }
@@ -3567,7 +3569,7 @@ index 0000000..3d6da8a
 +         return res == null ? null : new ParceledListSlice<>(res);
 +     }
 + 
-+@@ -1880,6 +1891,14 @@ public class AppOpsService extends IAppOpsService.Stub {
++@@ -1882,6 +1893,14 @@ public class AppOpsService extends IAppOpsService.Stub {
 +         if (resolvedPackageName == null) {
 +             return Collections.emptyList();
 +         }
@@ -3582,7 +3584,7 @@ index 0000000..3d6da8a
 +         synchronized (this) {
 +             Ops pkgOps = getOpsLocked(uid, resolvedPackageName, null, false, null,
 +                     /* edit */ false);
-+@@ -1992,6 +2011,14 @@ public class AppOpsService extends IAppOpsService.Stub {
++@@ -1994,6 +2013,14 @@ public class AppOpsService extends IAppOpsService.Stub {
 +                     Binder.getCallingPid(), Binder.getCallingUid(), "getHistoricalOps");
 +         }
 + 
@@ -3597,7 +3599,7 @@ index 0000000..3d6da8a
 +         final String[] opNamesArray = (opNames != null)
 +                 ? opNames.toArray(new String[opNames.size()]) : null;
 + 
-+@@ -2030,6 +2057,14 @@ public class AppOpsService extends IAppOpsService.Stub {
++@@ -2032,6 +2059,14 @@ public class AppOpsService extends IAppOpsService.Stub {
 +         mContext.enforcePermission(Manifest.permission.MANAGE_APPOPS,
 +                 Binder.getCallingPid(), Binder.getCallingUid(), "getHistoricalOps");
 + 
@@ -3613,7 +3615,7 @@ index 0000000..3d6da8a
 +                 ? opNames.toArray(new String[opNames.size()]) : null;
 + 
 +diff --git a/services/core/java/com/android/server/inputmethod/InputMethodManagerService.java b/services/core/java/com/android/server/inputmethod/InputMethodManagerService.java
-+index 98a44f696..4b5f78228 100644
++index ddc22936f..2d73db302 100644
 +--- a/services/core/java/com/android/server/inputmethod/InputMethodManagerService.java
 ++++ b/services/core/java/com/android/server/inputmethod/InputMethodManagerService.java
 +@@ -74,6 +74,7 @@ import android.annotation.UserIdInt;
@@ -3624,7 +3626,7 @@ index 0000000..3d6da8a
 + import android.content.BroadcastReceiver;
 + import android.content.ComponentName;
 + import android.content.ContentProvider;
-+@@ -5452,7 +5453,8 @@ public final class InputMethodManagerService implements IInputMethodManagerImpl.
++@@ -5459,7 +5460,8 @@ public final class InputMethodManagerService implements IInputMethodManagerImpl.
 +                 ? InputMethodUtils.convertIdToComponentName(methodId) : null;
 +         if (selectedInputMethod != null
 +                 && selectedInputMethod.getPackageName().equals(targetPkgName)) {
@@ -5049,7 +5051,7 @@ index 0000000..3d6da8a
 ++    }
 ++}
 +diff --git a/services/core/java/com/android/server/pm/ComputerEngine.java b/services/core/java/com/android/server/pm/ComputerEngine.java
-+index 81c201002..49789148e 100644
++index 231577e8f..601f0a03e 100644
 +--- a/services/core/java/com/android/server/pm/ComputerEngine.java
 ++++ b/services/core/java/com/android/server/pm/ComputerEngine.java
 +@@ -145,6 +145,8 @@ import com.android.server.pm.parsing.pkg.AndroidPackageUtils;
@@ -5745,7 +5747,7 @@ index 0000000..3d6da8a
 +         if (currentSci != null && currentSci.getId().equals(sci.getId())) {
 +             return true;
 +diff --git a/services/core/java/com/android/server/wm/ActivityRecord.java b/services/core/java/com/android/server/wm/ActivityRecord.java
-+index a320ea73a..0b34af0e3 100644
++index 4a63b7167..3f9b1e29f 100644
 +--- a/services/core/java/com/android/server/wm/ActivityRecord.java
 ++++ b/services/core/java/com/android/server/wm/ActivityRecord.java
 +@@ -344,6 +344,7 @@ import com.android.server.am.AppTimeTracker;
@@ -5773,7 +5775,7 @@ index 0000000..3d6da8a
 +             return false;
 +         }
 +diff --git a/services/core/java/com/android/server/wm/ActivityTaskManagerService.java b/services/core/java/com/android/server/wm/ActivityTaskManagerService.java
-+index ae3f85b76..f5a39f78f 100644
++index ffda3b813..ca19cbd32 100644
 +--- a/services/core/java/com/android/server/wm/ActivityTaskManagerService.java
 ++++ b/services/core/java/com/android/server/wm/ActivityTaskManagerService.java
 +@@ -295,6 +295,7 @@ import com.android.server.am.ProcessStateController;
@@ -5784,7 +5786,7 @@ index 0000000..3d6da8a
 + import com.android.server.pm.UserManagerInternal;
 + import com.android.server.pm.UserManagerService;
 + import com.android.server.policy.PermissionPolicyInternal;
-+@@ -7424,37 +7425,55 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
++@@ -7427,37 +7428,55 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
 +         public boolean dumpForProcesses(FileDescriptor fd, PrintWriter pw, boolean dumpAll,
 +                 String dumpPackage, int dumpAppId, boolean needSep, boolean testPssMode,
 +                 int wakefulness) {
@@ -5856,7 +5858,7 @@ index 0000000..3d6da8a
 +                 }
 +                 if (dumpPackage == null) {
 +                     pw.println("  mGlobalConfiguration: " + getGlobalConfiguration());
-+@@ -7474,6 +7493,7 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
++@@ -7477,6 +7496,7 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
 +                             if (dumpPackage != null && !dumpPackage.equals(pkg)) {
 +                                 continue;
 +                             }
@@ -5864,7 +5866,7 @@ index 0000000..3d6da8a
 +                             if (!printed) {
 +                                 pw.println("  mScreenCompatPackages:");
 +                                 printed = true;
-+@@ -7502,8 +7522,10 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
++@@ -7505,8 +7525,10 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
 +                     for (int i = 0; i < mAllowAppSwitchUids.size(); i++) {
 +                         ArrayMap<String, Integer> types = mAllowAppSwitchUids.valueAt(i);
 +                         for (int j = 0; j < types.size(); j++) {
@@ -5876,7 +5878,7 @@ index 0000000..3d6da8a
 +                                 if (needSep) {
 +                                     pw.println();
 +                                     needSep = false;
-+@@ -7517,7 +7539,7 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
++@@ -7520,7 +7542,7 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
 +                                 pw.print(": Type ");
 +                                 pw.print(types.keyAt(j));
 +                                 pw.print(" = ");
@@ -5885,7 +5887,7 @@ index 0000000..3d6da8a
 +                                 pw.println();
 +                             }
 +                         }
-+@@ -7535,11 +7557,20 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
++@@ -7538,11 +7560,20 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
 + 
 +                 return needSep;
 +             }
@@ -5906,7 +5908,7 @@ index 0000000..3d6da8a
 +             synchronized (mGlobalLock) {
 +                 if (dumpPackage == null) {
 +                     getGlobalConfiguration().dumpDebug(proto, GLOBAL_CONFIGURATION);
-+@@ -7573,18 +7604,24 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
++@@ -7576,18 +7607,24 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
 + 
 +                 if (mHomeProcess != null && (dumpPackage == null
 +                         || mHomeProcess.containsPackage(dumpPackage))) {
@@ -5935,7 +5937,7 @@ index 0000000..3d6da8a
 +                 }
 + 
 +                 for (Map.Entry<String, Integer> entry
-+@@ -7592,6 +7629,7 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
++@@ -7595,6 +7632,7 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
 +                     String pkg = entry.getKey();
 +                     int mode = entry.getValue();
 +                     if (dumpPackage == null || dumpPackage.equals(pkg)) {
@@ -5943,7 +5945,7 @@ index 0000000..3d6da8a
 +                         long compatToken = proto.start(SCREEN_COMPAT_PACKAGES);
 +                         proto.write(PACKAGE, pkg);
 +                         proto.write(MODE, mode);
-+@@ -7604,6 +7642,11 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
++@@ -7607,6 +7645,11 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
 +                 }
 + 
 +             }
@@ -6080,7 +6082,7 @@ index 0000000..3d6da8a
 +     }
 + 
 +diff --git a/services/devicepolicy/java/com/android/server/devicepolicy/DevicePolicyManagerService.java b/services/devicepolicy/java/com/android/server/devicepolicy/DevicePolicyManagerService.java
-+index 941e2b60d..01f62d61a 100644
++index 0ba44d930..42b35116d 100644
 +--- a/services/devicepolicy/java/com/android/server/devicepolicy/DevicePolicyManagerService.java
 ++++ b/services/devicepolicy/java/com/android/server/devicepolicy/DevicePolicyManagerService.java
 +@@ -284,6 +284,7 @@ import android.app.AlarmManager;
@@ -7364,26 +7366,26 @@ index 0000000..f8f2616
 +-- 
 +2.47.3
 +
-diff --git a/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrate-configuration-in-Settings-v1.7.patch b/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrate-configuration-in-Settings-v1.7.patch
+diff --git a/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.patch b/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.patch
 new file mode 100644
-index 0000000..2ddb86e
+index 0000000..25fbc82
 --- /dev/null
-+++ b/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrate-configuration-in-Settings-v1.7.patch
-@@ -0,0 +1,1628 @@
-+From 6d4c8d6ae26e8747c0db910d565b16f6557464a0 Mon Sep 17 00:00:00 2001
++++ b/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.patch
+@@ -0,0 +1,1596 @@
++From d600fc9446ea9f5dcd62e06e249c1ddad726517d Mon Sep 17 00:00:00 2001
 +From: Manuel Giganto <mgigantoregistros+git@gmail.com>
 +Date: Sat, 21 Feb 2026 17:38:35 +0000
-+Subject: [PATCH] AppsScope: Integrate Apps Scope configuration in Settings
++Subject: [PATCH] AppsScope: Integrar configuracion en Settings v1.7
 +
 +---
 + AndroidManifest.xml                           |  10 +
 + res/values/strings_ext.xml                    |  38 +
 + .../settings/spa/SettingsSpaEnvironment.kt    |   4 +
 + .../app/appinfo/AppAppsScopesPageProvider.kt  | 781 ++++++++++++++++++
-+ .../AppAppsScopesPickerPageProvider.kt        | 643 ++++++++++++++
-+ .../app/appinfo/AppAppsScopesPreference.kt    |  61 ++
++ .../AppAppsScopesPickerPageProvider.kt        | 627 ++++++++++++++
++ .../app/appinfo/AppAppsScopesPreference.kt    |  45 +
 + .../spa/app/appinfo/AppInfoSettings.kt        |   1 +
-+ 7 files changed, 1538 insertions(+)
++ 7 files changed, 1506 insertions(+)
 + create mode 100644 src/com/android/settings/spa/app/appinfo/AppAppsScopesPageProvider.kt
 + create mode 100644 src/com/android/settings/spa/app/appinfo/AppAppsScopesPickerPageProvider.kt
 + create mode 100644 src/com/android/settings/spa/app/appinfo/AppAppsScopesPreference.kt
@@ -8269,26 +8271,10 @@ index 0000000..2ddb86e
 ++}
 +diff --git a/src/com/android/settings/spa/app/appinfo/AppAppsScopesPickerPageProvider.kt b/src/com/android/settings/spa/app/appinfo/AppAppsScopesPickerPageProvider.kt
 +new file mode 100644
-+index 0000000..0799bf3
++index 0000000..ebf5d3b
 +--- /dev/null
 ++++ b/src/com/android/settings/spa/app/appinfo/AppAppsScopesPickerPageProvider.kt
-+@@ -0,0 +1,643 @@
-++/*
-++ * Copyright (C) 2026 GrapheneOS
-++ *
-++ * Licensed under the Apache License, Version 2.0 (the "License");
-++ * you may not use this file except in compliance with the License.
-++ * You may obtain a copy of the License at
-++ *
-++ *      http://www.apache.org/licenses/LICENSE-2.0
-++ *
-++ * Unless required by applicable law or agreed to in writing, software
-++ * distributed under the License is distributed on an "AS IS" BASIS,
-++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-++ * See the License for the specific language governing permissions and
-++ * limitations under the License.
-++ */
-++
++@@ -0,0 +1,627 @@
 ++package com.android.settings.spa.app.appinfo
 ++
 ++import android.app.AppsScope
@@ -8918,26 +8904,10 @@ index 0000000..2ddb86e
 ++}
 +diff --git a/src/com/android/settings/spa/app/appinfo/AppAppsScopesPreference.kt b/src/com/android/settings/spa/app/appinfo/AppAppsScopesPreference.kt
 +new file mode 100644
-+index 0000000..93ea946
++index 0000000..ce112a1
 +--- /dev/null
 ++++ b/src/com/android/settings/spa/app/appinfo/AppAppsScopesPreference.kt
-+@@ -0,0 +1,61 @@
-++/*
-++ * Copyright (C) 2026 GrapheneOS
-++ * Copyright (C) 2024-2025 The Android Open Source Project
-++ *
-++ * Licensed under the Apache License, Version 2.0 (the "License");
-++ * you may not use this file except in compliance with the License.
-++ * You may obtain a copy of the License at
-++ *
-++ *      http://www.apache.org/licenses/LICENSE-2.0
-++ *
-++ * Unless required by applicable law or agreed to in writing, software
-++ * distributed under the License is distributed on an "AS IS" BASIS,
-++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.n * See the License for the specific language governing permissions and
-++ * limitations under the License.
-++ */
-++
++@@ -0,0 +1,45 @@
 ++package com.android.settings.spa.app.appinfo
 ++
 ++import android.content.pm.ApplicationInfo
@@ -8995,6 +8965,314 @@ index 0000000..2ddb86e
 +             AppStoragePreference(app)
 +             InstantAppDomainsPreference(app)
 +             AppDataUsagePreference(app)
++-- 
++2.47.3
++
+diff --git a/variantes/parches/appsScopes/packages/modules/Connectivity/0001-AppsScopes-v1.7-Network.patch b/variantes/parches/appsScopes/packages/modules/Connectivity/0001-AppsScopes-v1.7-Network.patch
+new file mode 100644
+index 0000000..45f9e60
+--- /dev/null
++++ b/variantes/parches/appsScopes/packages/modules/Connectivity/0001-AppsScopes-v1.7-Network.patch
+@@ -0,0 +1,302 @@
++From 134bb6f398c365632f47bf2cf855931e947c60a5 Mon Sep 17 00:00:00 2001
++From: Manuel Giganto <mgigantoregistros+git@gmail.com>
++Date: Tue, 9 Jun 2026 10:54:57 +0000
++Subject: [PATCH] AppsScopes v1.7 - Network
++
++---
++ .../server/net/NetworkStatsService.java       | 216 +++++++++++++++++-
++ 1 file changed, 213 insertions(+), 3 deletions(-)
++
++diff --git a/service-t/src/com/android/server/net/NetworkStatsService.java b/service-t/src/com/android/server/net/NetworkStatsService.java
++index c82955f..ba7bd27 100644
++--- a/service-t/src/com/android/server/net/NetworkStatsService.java
+++++ b/service-t/src/com/android/server/net/NetworkStatsService.java
++@@ -162,6 +162,7 @@ import android.util.ArraySet;
++ import android.util.EventLog;
++ import android.util.IndentingPrintWriter;
++ import android.util.Log;
+++import android.util.SparseBooleanArray;
++ import android.util.SparseIntArray;
++ import android.util.proto.ProtoOutputStream;
++ 
++@@ -195,6 +196,8 @@ import com.android.networkstack.apishim.ConstantsShim;
++ import com.android.networkstack.apishim.common.UnsupportedApiLevelException;
++ import com.android.server.connectivity.ConnectivityResources;
++ 
+++import java.lang.reflect.Method;
+++
++ import java.io.File;
++ import java.io.FileDescriptor;
++ import java.io.FileOutputStream;
++@@ -1661,7 +1664,43 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
++ 
++             @Override
++             public int[] getRelevantUids() {
++-                return getUidComplete().getRelevantUids(mAccessLevel);
+++                int[] uids = getUidComplete().getRelevantUids(mAccessLevel);
+++                // AppsScope Hook - MSG START
+++                if (mCallingUid != 0 && mCallingUid != android.os.Process.SYSTEM_UID) {
+++                    try {
+++                        final int userId = UserHandle.getUserId(mCallingUid);
+++                        Class<?> appsScopeClass = Class.forName("android.app.AppsScope");
+++                        Method shouldAllowVisibility = appsScopeClass.getMethod("shouldAllowVisibility", int.class, String.class, int.class);
+++                        PackageManager pm = mContext.getPackageManager();
+++
+++                        int count = 0;
+++                        int[] temp = new int[uids.length];
+++                        final long token = Binder.clearCallingIdentity();
+++                        try {
+++                            for (int uid : uids) {
+++                                if (uid == 0 || uid == android.os.Process.SYSTEM_UID || uid == mCallingUid) {
+++                                    temp[count++] = uid;
+++                                    continue;
+++                                }
+++                                String[] pkgs = pm.getPackagesForUid(uid);
+++                                boolean isVisible = (pkgs == null || pkgs.length == 0 ||
+++                                        (boolean) shouldAllowVisibility.invoke(null, mCallingUid, pkgs[0], userId));
+++                                if (isVisible) {
+++                                    temp[count++] = uid;
+++                                }
+++                            }
+++                        } finally {
+++                            Binder.restoreCallingIdentity(token);
+++                        }
+++                        if (count < uids.length) {
+++                            return java.util.Arrays.copyOf(temp, count);
+++                        }
+++                    } catch (Exception e) {
+++                        Log.e("NetworkStats", "AppsScope getRelevantUids hook failed", e);
+++                    }
+++                }
+++                // AppsScope Hook - MSG END
+++                return uids;
++             }
++ 
++             @Override
++@@ -1703,13 +1742,63 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
++                     NetworkTemplate template, long start, long end, boolean includeTags) {
++                 enforceTemplatePermissions(template, callingPackage);
++                 try {
++-                    final NetworkStats stats = getUidComplete()
+++                    NetworkStats stats = getUidComplete()
++                             .getSummary(template, start, end, mAccessLevel, mCallingUid);
++                     if (includeTags) {
++                         final NetworkStats tagStats = getUidTagComplete()
++                                 .getSummary(template, start, end, mAccessLevel, mCallingUid);
++                         stats.combineAllValues(tagStats);
++                     }
+++
+++                    // AppsScope Hook - MSG START
+++                    if (mCallingUid != 0 && mCallingUid != android.os.Process.SYSTEM_UID) {
+++                        try {
+++                            final int userId = UserHandle.getUserId(mCallingUid);
+++                            NetworkStats filteredStats = new NetworkStats(stats.getElapsedRealtime(), stats.size());
+++                            NetworkStats.Entry entry = null;
+++                            SparseBooleanArray uidVisibilityCache = new SparseBooleanArray();
+++
+++                            Class<?> appsScopeClass = Class.forName("android.app.AppsScope");
+++                            Method shouldAllowVisibility = appsScopeClass.getMethod("shouldAllowVisibility", int.class, String.class, int.class);
+++
+++                            PackageManager pm = mContext.getPackageManager();
+++
+++                            for (int i = 0; i < stats.size(); i++) {
+++                                entry = stats.getValues(i, entry);
+++                                if (entry.uid == 0 || entry.uid == android.os.Process.SYSTEM_UID) {
+++                                    filteredStats.insertEntry(entry);
+++                                    continue;
+++                                }
+++
+++                                int cacheIndex = uidVisibilityCache.indexOfKey(entry.uid);
+++                                boolean isVisible;
+++
+++                                if (cacheIndex >= 0) { //Cached uid
+++                                    isVisible = uidVisibilityCache.valueAt(cacheIndex);
+++                                } else { //First time seeing this uid
+++                                    String[] pkgs;
+++                                    final long token = Binder.clearCallingIdentity();
+++                                    try {
+++                                        pkgs = pm.getPackagesForUid(entry.uid);
+++                                    } finally {
+++                                        Binder.restoreCallingIdentity(token);
+++                                    }
+++                                    isVisible = (pkgs == null || pkgs.length == 0 || 
+++                                            (boolean) shouldAllowVisibility.invoke(null, mCallingUid, pkgs[0], userId));
+++                                    uidVisibilityCache.append(entry.uid, isVisible);
+++                                }
+++
+++                                if (isVisible) {
+++                                    filteredStats.insertEntry(entry);
+++                                }
+++                            }
+++                            stats = filteredStats;
+++                        } catch (Exception e) {
+++                            Log.e("NetworkStats", "AppsScope hook failed", e);
+++                        }
+++                    }
+++                    // AppsScope Hook - MSG END
+++
++                     return stats;
++                 } catch (NullPointerException e) {
++                     throw e;
++@@ -1721,8 +1810,58 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
++                     NetworkTemplate template, long start, long end) {
++                 enforceTemplatePermissions(template, callingPackage);
++                 try {
++-                    final NetworkStats tagStats = getUidTagComplete()
+++                    NetworkStats tagStats = getUidTagComplete()
++                             .getSummary(template, start, end, mAccessLevel, mCallingUid);
+++
+++                    // AppsScope Hook - MSG START
+++                    if (mCallingUid != 0 && mCallingUid != android.os.Process.SYSTEM_UID) {
+++                        try {
+++                            final int userId = UserHandle.getUserId(mCallingUid);
+++                            NetworkStats filteredStats = new NetworkStats(tagStats.getElapsedRealtime(), tagStats.size());
+++                            NetworkStats.Entry entry = null;
+++                            SparseBooleanArray uidVisibilityCache = new SparseBooleanArray();
+++
+++                            Class<?> appsScopeClass = Class.forName("android.app.AppsScope");
+++                            Method shouldAllowVisibility = appsScopeClass.getMethod("shouldAllowVisibility", int.class, String.class, int.class);
+++
+++                            PackageManager pm = mContext.getPackageManager();
+++
+++                            for (int i = 0; i < tagStats.size(); i++) {
+++                                entry = tagStats.getValues(i, entry);
+++                                if (entry.uid == 0 || entry.uid == android.os.Process.SYSTEM_UID) {
+++                                    filteredStats.insertEntry(entry);
+++                                    continue;
+++                                }
+++
+++                                int cacheIndex = uidVisibilityCache.indexOfKey(entry.uid);
+++                                boolean isVisible;
+++
+++                                if (cacheIndex >= 0) { // Cached uid
+++                                    isVisible = uidVisibilityCache.valueAt(cacheIndex);
+++                                } else { // First time seeing this uid
+++                                    String[] pkgs;
+++                                    final long token = Binder.clearCallingIdentity();
+++                                    try {
+++                                        pkgs = pm.getPackagesForUid(entry.uid);
+++                                    } finally {
+++                                        Binder.restoreCallingIdentity(token);
+++                                    }
+++                                    isVisible = (pkgs == null || pkgs.length == 0 || 
+++                                            (boolean) shouldAllowVisibility.invoke(null, mCallingUid, pkgs[0], userId));
+++                                    uidVisibilityCache.append(entry.uid, isVisible);
+++                                }
+++
+++                                if (isVisible) {
+++                                    filteredStats.insertEntry(entry);
+++                                }
+++                            }
+++                            tagStats = filteredStats;
+++                        } catch (Exception e) {
+++                            Log.e("NetworkStats", "AppsScope tag hook failed", e);
+++                        }
+++                    }
+++                    // AppsScope Hook - MSG END
+++
++                     return tagStats;
++                 } catch (NullPointerException e) {
++                     throw e;
++@@ -1733,6 +1872,33 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
++             public NetworkStatsHistory getHistoryForUid(
++                     NetworkTemplate template, int uid, int set, int tag, int fields) {
++                 enforceTemplatePermissions(template, callingPackage);
+++
+++                // AppsScope Hook - MSG START
+++                if (mCallingUid != 0 && mCallingUid != android.os.Process.SYSTEM_UID) {
+++                    try {
+++                        String[] pkgs;
+++                        final long token = Binder.clearCallingIdentity();
+++                        try {
+++                            pkgs = mContext.getPackageManager().getPackagesForUid(uid);
+++                        } finally {
+++                            Binder.restoreCallingIdentity(token);
+++                        }
+++
+++                        if (pkgs != null && pkgs.length > 0) {
+++                            Class<?> appsScopeClass = Class.forName("android.app.AppsScope");
+++                            Method shouldAllowVisibility = appsScopeClass.getMethod("shouldAllowVisibility", int.class, String.class, int.class);
+++                            boolean isVisible = (boolean) shouldAllowVisibility.invoke(null, mCallingUid, pkgs[0], UserHandle.getUserId(mCallingUid));
+++
+++                            if (!isVisible) {
+++                                return new NetworkStatsHistory(1000, 0);
+++                            }
+++                        }
+++                    } catch (Exception e) {
+++                        Log.e("NetworkStats", "AppsScope history hook failed", e);
+++                    }
+++                }
+++                // AppsScope Hook - MSG END
+++
++                 // NOTE: We don't augment UID-level statistics
++                 if (tag == TAG_NONE) {
++                     return getUidComplete().getHistory(template, null, uid, set, tag, fields,
++@@ -1748,6 +1914,38 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
++                     NetworkTemplate template, int uid, int set, int tag, int fields,
++                     long start, long end) {
++                 enforceTemplatePermissions(template, callingPackage);
+++
+++                // AppsScope Hook - MSG START
+++                if (mCallingUid != 0 && mCallingUid != android.os.Process.SYSTEM_UID) {
+++                    try {
+++                        String[] pkgs;
+++                        final long token = Binder.clearCallingIdentity();
+++                        try {
+++                            pkgs = mContext.getPackageManager().getPackagesForUid(uid);
+++                        } finally {
+++                            Binder.restoreCallingIdentity(token);
+++                        }
+++
+++                        if (pkgs != null && pkgs.length > 0) {
+++                            Class<?> appsScopeClass = Class.forName("android.app.AppsScope");
+++                            Method shouldAllowVisibility = appsScopeClass.getMethod("shouldAllowVisibility", int.class, String.class, int.class);
+++                            boolean isVisible = (boolean) shouldAllowVisibility.invoke(null, mCallingUid, pkgs[0], UserHandle.getUserId(mCallingUid));
+++
+++                            if (!isVisible) {
+++                                // Avoid side-channel simulating the native exception if they ask for tags of another UID
+++                                if (tag != TAG_NONE && uid != Binder.getCallingUid()) {
+++                                    throw new SecurityException("Calling package " + mCallingPackage
+++                                            + " cannot access tag information from a different uid");
+++                                }
+++                                return new NetworkStatsHistory(1000, 0);
+++                            }
+++                        }
+++                    } catch (Exception e) {
+++                        Log.e("NetworkStats", "AppsScope history hook failed", e);
+++                    }
+++                }
+++                // AppsScope Hook - MSG END
+++
++                 // TODO(b/200768422): Redact returned history if the template is location
++                 //  sensitive but the caller is not privileged.
++                 // NOTE: We don't augment UID-level statistics
++@@ -1773,6 +1971,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
++ 
++     private void enforceTemplatePermissions(@NonNull NetworkTemplate template,
++             @Nullable String callingPackage) {
+++	// AppsScope Hook - MSG START
+++        if (callingPackage == null) {
+++            String[] pkgs = mContext.getPackageManager().getPackagesForUid(Binder.getCallingUid());
+++            if (pkgs != null && pkgs.length > 0) callingPackage = pkgs[0];
+++        }
+++	// AppsScope Hook - MSG END
++         // For a template with wifi network keys, it is possible for a malicious
++         // client to track the user locations via querying data usage. Thus, enforce
++         // fine location permission check.
++@@ -1794,6 +1998,12 @@ public class NetworkStatsService extends INetworkStatsService.Stub {
++     }
++ 
++     private @NetworkStatsAccess.Level int checkAccessLevel(@Nullable String callingPackage) {
+++	// AppsScope Hook - MSG START
+++        if (callingPackage == null) {
+++            String[] pkgs = mContext.getPackageManager().getPackagesForUid(Binder.getCallingUid());
+++            if (pkgs != null && pkgs.length > 0) callingPackage = pkgs[0];
+++        }
+++	//AppsScope Hook - MSG END
++         return NetworkStatsAccess.checkAccessLevel(
++                 mContext, Binder.getCallingPid(), Binder.getCallingUid(), callingPackage);
++     }
 +-- 
 +2.47.3
 +
