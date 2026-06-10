@@ -1,13 +1,8 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060100/komodo-ota_update-2026060100-user-clean.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060100/komodo-ota_update-2026060100-user-clean.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060600/komodo-ota_update-2026060600-user-clean.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060600/komodo-ota_update-2026060600-user-clean.zip.csig"
   },
-  "incremental": {
-    "5e7ca8265f5183c9546bcaebea35af6e813a725ccfccbdab39cf9401189c78ab": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060100/komodo-incremental-2026052400-2026060100-user-clean.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060100/komodo-incremental-2026052400-2026060100-user-clean.zip.csig"
-    }
-  }
+  "incremental": {}
 }

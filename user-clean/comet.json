@@ -1,13 +1,8 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060100/comet-ota_update-2026060100-user-clean.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060100/comet-ota_update-2026060100-user-clean.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060600/comet-ota_update-2026060600-user-clean.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060600/comet-ota_update-2026060600-user-clean.zip.csig"
   },
-  "incremental": {
-    "ec766d6464ed60ccbda833e34346bb384a7baed69e3ac2f388fab668f46de1cf": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060100/comet-incremental-2026052400-2026060100-user-clean.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026060100/comet-incremental-2026052400-2026060100-user-clean.zip.csig"
-    }
-  }
+  "incremental": {}
 }
