@@ -1,30 +1,32 @@
-From 46952c48610396f275587c979511060e88ac8841 Mon Sep 17 00:00:00 2001
+From 41d02139e88f4991158f56c1eedd50059fe508b9 Mon Sep 17 00:00:00 2001
 From: Manuel Giganto <mgigantoregistros+git@gmail.com>
-Date: Tue, 9 Jun 2026 11:53:02 +0000
-Subject: [PATCH] Actualizar AppsScopes a implementacion v1.7 - FULL
+Date: Tue, 16 Jun 2026 07:32:17 +0000
+Subject: [PATCH] Actualizar AppsScopes a implementacion v1.7.1 - FULL
 
 ---
- .../0001-AppsScopes-implementacion-v1.7.patch | 7245 +++++++++++++++++
+ ...001-AppsScopes-implementacion-v1.7.1.patch | 7248 +++++++++++++++++
  ...pe-Integrate-AppsScope-shortcut-v1.7.patch |   95 +
- ...egrar-configuracion-en-Settings-v1.7.patch | 1596 ++++
+ ...rar-configuracion-en-Settings-v1.7.1.patch | 1597 ++++
  .../0001-AppsScopes-v1.7-Network.patch        |  302 +
- 4 files changed, 9238 insertions(+)
- create mode 100644 variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.patch
+ 4 files changed, 9242 insertions(+)
+ create mode 100644 variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.1.patch
  create mode 100644 variantes/parches/appsScopes/packages/apps/Launcher3/0001-AppsScope-Integrate-AppsScope-shortcut-v1.7.patch
- create mode 100644 variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.patch
+ create mode 100644 variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.1.patch
  create mode 100644 variantes/parches/appsScopes/packages/modules/Connectivity/0001-AppsScopes-v1.7-Network.patch
 
-diff --git a/variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.patch b/variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.patch
+diff --git a/variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.1.patch b/variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.1.patch
 new file mode 100644
-index 0000000..e326b37
+index 0000000..0d0d7e5
 --- /dev/null
-+++ b/variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.patch
-@@ -0,0 +1,7245 @@
-+From 600cc177138848cd1930aa912f410afcc59c30ca Mon Sep 17 00:00:00 2001
++++ b/variantes/parches/appsScopes/frameworks/base/0001-AppsScopes-implementacion-v1.7.1.patch
+@@ -0,0 +1,7248 @@
++From f1c9480c43b33ee94da635662aa0073cc8f74b45 Mon Sep 17 00:00:00 2001
 +From: Manuel Giganto <mgigantoregistros+git@gmail.com>
 +Date: Thu, 16 Apr 2026 22:25:21 +0000
-+Subject: [PATCH] AppsScopes implementacion v1.7
++Subject: [PATCH] AppsScopes implementacion v1.7.1
 +
++AppsScopes: Add GmsCompatLib to default excludedPackages in Settings
++AppsScopes: Fix visible apps from settings in secondary users
 +AppsScopes: 1.7.0 - Code cleaned
 +AppsScopes: 1.6.1k - Disable ST5 changes
 +AppsScopes: 1.6.1j - Close leaks from dumps - mainly for 'pm dump' command
@@ -93,7 +95,7 @@ index 0000000..e326b37
 + .../android/server/pm/AppsFilterSnapshot.java |   8 +
 + .../android/server/pm/AppsScopeManager.java   | 980 ++++++++++++++++++
 + .../android/server/pm/AppsScopeStorage.java   | 145 +++
-+ .../com/android/server/pm/ComputerEngine.java |  88 +-
++ .../com/android/server/pm/ComputerEngine.java |  89 +-
 + .../com/android/server/pm/DumpHelper.java     |   3 +-
 + .../server/pm/GosPackageStatePermission.java  |   5 +-
 + .../server/pm/GosPackageStatePermissions.java |  10 +-
@@ -120,7 +122,7 @@ index 0000000..e326b37
 + .../usage/UserBroadcastResponseStats.java     |  11 +
 + .../server/usage/UserUsageStatsService.java   |  33 +
 + .../VoiceInteractionManagerService.java       |  16 +-
-+ 66 files changed, 3706 insertions(+), 120 deletions(-)
++ 66 files changed, 3707 insertions(+), 120 deletions(-)
 + create mode 100644 core/java/android/app/AppsScope.java
 + create mode 100644 services/core/java/com/android/server/pm/AppsScopeManager.java
 + create mode 100644 services/core/java/com/android/server/pm/AppsScopeStorage.java
@@ -5051,7 +5053,7 @@ index 0000000..e326b37
 ++    }
 ++}
 +diff --git a/services/core/java/com/android/server/pm/ComputerEngine.java b/services/core/java/com/android/server/pm/ComputerEngine.java
-+index 231577e8f..601f0a03e 100644
++index 1ac39b39a..580110b3e 100644
 +--- a/services/core/java/com/android/server/pm/ComputerEngine.java
 ++++ b/services/core/java/com/android/server/pm/ComputerEngine.java
 +@@ -145,6 +145,8 @@ import com.android.server.pm.parsing.pkg.AndroidPackageUtils;
@@ -5162,7 +5164,7 @@ index 0000000..e326b37
 +         // Return if the package doesn't exist.
 +         if (packageName != null && setting == null && !isApexPackage(packageName)) {
 +             return;
-+@@ -5547,7 +5607,23 @@ public class ComputerEngine implements Computer {
++@@ -5541,7 +5601,24 @@ public class ComputerEngine implements Computer {
 +         enforceCrossUserPermission(callingUid, userId, false /*requireFullPermission*/,
 +                 false /*checkShell*/, "can package query");
 + 
@@ -5171,7 +5173,8 @@ index 0000000..e326b37
 ++        String effectiveSourcePackageName = sourcePackageName;
 ++        boolean bypassAppsScope = false;
 ++        // Restriction: Only System, Root or Shell can bypass Apps Scope via .unfiltered
-++        if (callingUid == Process.SYSTEM_UID || callingUid == Process.ROOT_UID || callingUid == Process.SHELL_UID) {
+++        final int callingAppId = UserHandle.getAppId(callingUid);
+++        if (callingAppId == Process.SYSTEM_UID || callingAppId == Process.ROOT_UID || callingAppId == Process.SHELL_UID) {
 ++            if (sourcePackageName.endsWith(".unfiltered")) {
 ++                // Check if a package with this exact name exists.
 ++                // If it DOES NOT exist, it's a bypass request.
@@ -5187,7 +5190,7 @@ index 0000000..e326b37
 +         final PackageStateInternal[] targetSettings = new PackageStateInternal[targetSize];
 +         // Throw exception if the caller without the visibility of source package
 +         boolean throwException =
-+@@ -5562,13 +5638,15 @@ public class ComputerEngine implements Computer {
++@@ -5556,13 +5633,15 @@ public class ComputerEngine implements Computer {
 +         }
 +         if (throwException) {
 +             throw new ParcelableException(new PackageManager.NameNotFoundException("Package(s) "
@@ -7366,26 +7369,26 @@ index 0000000..f8f2616
 +-- 
 +2.47.3
 +
-diff --git a/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.patch b/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.patch
+diff --git a/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.1.patch b/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.1.patch
 new file mode 100644
-index 0000000..25fbc82
+index 0000000..678543a
 --- /dev/null
-+++ b/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.patch
-@@ -0,0 +1,1596 @@
-+From d600fc9446ea9f5dcd62e06e249c1ddad726517d Mon Sep 17 00:00:00 2001
++++ b/variantes/parches/appsScopes/packages/apps/Settings/0001-AppsScope-Integrar-configuracion-en-Settings-v1.7.1.patch
+@@ -0,0 +1,1597 @@
++From 08ca49f79f37bf057b8dfdc718e78ed5c40bd2bd Mon Sep 17 00:00:00 2001
 +From: Manuel Giganto <mgigantoregistros+git@gmail.com>
 +Date: Sat, 21 Feb 2026 17:38:35 +0000
-+Subject: [PATCH] AppsScope: Integrar configuracion en Settings v1.7
++Subject: [PATCH] AppsScope: Integrar configuracion en Settings v1.7.1
 +
 +---
 + AndroidManifest.xml                           |  10 +
 + res/values/strings_ext.xml                    |  38 +
 + .../settings/spa/SettingsSpaEnvironment.kt    |   4 +
-+ .../app/appinfo/AppAppsScopesPageProvider.kt  | 781 ++++++++++++++++++
++ .../app/appinfo/AppAppsScopesPageProvider.kt  | 782 ++++++++++++++++++
 + .../AppAppsScopesPickerPageProvider.kt        | 627 ++++++++++++++
 + .../app/appinfo/AppAppsScopesPreference.kt    |  45 +
 + .../spa/app/appinfo/AppInfoSettings.kt        |   1 +
-+ 7 files changed, 1506 insertions(+)
++ 7 files changed, 1507 insertions(+)
 + create mode 100644 src/com/android/settings/spa/app/appinfo/AppAppsScopesPageProvider.kt
 + create mode 100644 src/com/android/settings/spa/app/appinfo/AppAppsScopesPickerPageProvider.kt
 + create mode 100644 src/com/android/settings/spa/app/appinfo/AppAppsScopesPreference.kt
@@ -7484,10 +7487,10 @@ index 0000000..25fbc82
 +             AppListNotificationsPageProvider.AllApps,
 +diff --git a/src/com/android/settings/spa/app/appinfo/AppAppsScopesPageProvider.kt b/src/com/android/settings/spa/app/appinfo/AppAppsScopesPageProvider.kt
 +new file mode 100644
-+index 0000000..ee80ae6
++index 0000000..104d065
 +--- /dev/null
 ++++ b/src/com/android/settings/spa/app/appinfo/AppAppsScopesPageProvider.kt
-+@@ -0,0 +1,781 @@
++@@ -0,0 +1,782 @@
 ++package com.android.settings.spa.app.appinfo
 ++
 ++import android.app.Activity
@@ -8173,11 +8176,12 @@ index 0000000..25fbc82
 ++                    }
 ++
 ++                    val excludedPackages = setOf(
-++                        "com.android.qns",
 ++                        "android",
 ++                        "com.android.permissioncontroller",
-++                        "com.android.settings",
 ++                        "com.android.providers.settings",
+++                        "com.android.qns",
+++                        "com.android.settings",
+++                        "com.grapheneos.gmscompat.lib",
 ++                    )
 ++
 ++                    val visibleAppsAsync = relevantApps.map { app ->
