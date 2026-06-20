@@ -8181,7 +8181,7 @@ index 0000000..678543a
 ++                        "com.android.providers.settings",
 ++                        "com.android.qns",
 ++                        "com.android.settings",
-++                        "com.grapheneos.gmscompat.lib",
+++                        "app.grapheneos.gmscompat.lib",
 ++                    )
 ++
 ++                    val visibleAppsAsync = relevantApps.map { app ->
