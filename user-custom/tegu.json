@@ -1,8 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062300/tegu-ota_update-2026062300-user-custom.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062300/tegu-ota_update-2026062300-user-custom.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/tegu-ota_update-2026062800-user-custom.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/tegu-ota_update-2026062800-user-custom.zip.csig"
   },
-  "incremental": {}
+  "incremental": {
+    "a3ee0a5bd227f1a13e2addb389061a34c8708022e5353247483f621e542fa62b": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/tegu-incremental-2026062300-2026062800-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/tegu-incremental-2026062300-2026062800-user-custom.zip.csig"
+    }
+  }
 }

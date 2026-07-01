@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062300/mustang-ota_update-2026062300-user-rooted.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062300/mustang-ota_update-2026062300-user-rooted.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/mustang-ota_update-2026062800-user-rooted.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/mustang-ota_update-2026062800-user-rooted.zip.csig"
   },
   "incremental": {
-    "2b4dcbdbf37534334a197e472ce23e7763bd8ff9d77e24bc386f8dd37add3126": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062300/mustang-incremental-2026061600-2026062300-user-rooted.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062300/mustang-incremental-2026061600-2026062300-user-rooted.zip.csig"
+    "5197cb76b73e039fbe3b5646e682068abd0a6160faa884aeebc764f6008e6413": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/mustang-incremental-2026062300-2026062800-user-rooted.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/mustang-incremental-2026062300-2026062800-user-rooted.zip.csig"
     }
   }
 }
