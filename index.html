@@ -194,10 +194,27 @@
 
         .url-text {
             flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
             color: var(--accent-secondary);
+            word-break: break-all;
+            white-space: normal;
+        }
+
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .qr-code {
+            max-width: 140px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            background: #fff;
+            padding: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
 
         .copy-btn {
@@ -535,6 +552,9 @@
                 <div class="variant-badge" style="color: #10b981;">Vanilla</div>
                 <h3>Clean</h3>
                 <p>Official GrapheneOS experience with the addition of Custota support for third-party updates.</p>
+                <div class="qr-container">
+                    <img src="img/qr-code-clean.png" alt="Clean Variant QR Code" class="qr-code">
+                </div>
                 <div class="url-box">
                     <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS/user-clean/</span>
                     <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS/user-clean/')">Copy</button>
@@ -546,6 +566,9 @@
                 <div class="variant-badge" style="color: #3b82f6;">Enhanced</div>
                 <h3>Custom</h3>
                 <p>Features custom refinements and system-level modifications, including WIP application isolation.</p>
+                <div class="qr-container">
+                    <img src="img/qr-code-custom.png" alt="Custom Variant QR Code" class="qr-code">
+                </div>
                 <div class="url-box">
                     <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS/user-custom/</span>
                     <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS/user-custom/')">Copy</button>
@@ -557,6 +580,9 @@
                 <div class="variant-badge" style="color: #ef4444;">Power User</div>
                 <h3>Rooted (On-Demand)</h3>
                 <p>Featuring KernelSU (SukiSU) + SUSFS. Root access is disabled by default; press VolUp at boot to enable. Includes custom features.</p>
+                <div class="qr-container">
+                    <img src="img/qr-code-rooted.png" alt="Rooted Variant QR Code" class="qr-code">
+                </div>
                 <div class="url-box">
                     <span class="url-text">https://mgiganto.github.io/msg-GrapheneOS/user-rooted/</span>
                     <button class="copy-btn" onclick="copyUrl(this, 'https://mgiganto.github.io/msg-GrapheneOS/user-rooted/')">Copy</button>
@@ -570,7 +596,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </span>
                 <div>
-                    <strong style="display: block; margin-bottom: 0.25rem;">Apps Isolation (Work In Progress)</strong>
+		    <strong style="display: block; margin-bottom: 0.25rem;">Apps Isolation (V1.7.2)</strong>
                     <p style="font-size: 0.9rem; color: var(--text-dim); margin: 0;">Allows you to prevent apps from seeing other installed apps. <strong>To activate it, go to the App Info of the desired application.</strong></p>
                 </div>
             </div>
@@ -719,7 +745,7 @@
                 </div>
                 <div class="step-item">
                     <h4>Activate Trigger</h4>
-                    <p>When the <span class="highlight">GrapheneOS logo</span> appears during boot, press <span class="highlight">Volume Up</span>.</p>
+		    <p>When the <span class="highlight">GrapheneOS logo</span> appears during boot (some devices it is before), press <span class="highlight">Volume Up</span>.</p>
                 </div>
                 <div class="step-item">
                     <h4>Root Enabled</h4>

@@ -18,6 +18,15 @@ These builds allow you to switch between different variants without requiring a 
 
 -----
 
+## Apps Scopes V1.7.2
+
+Allows you to prevent apps from seeing and comunicate with other installed apps.
+You will be able to see the list of applications that the installed application is able to see by default and restrict it. It will block the visibility, and IPC comunications.
+It can be used also to restrict Shizuku or the shell/adb and other system apps, so even shizuku dependant apps won't be able to see or have a free access to everything.
+To activate it, go to the App Info of the desired application.
+
+-----
+
 ## On-Demand Root (Rooted Variant)
 
 The Rooted variant is designed with a "security-first" approach. Root functionality is not active by default; it must be explicitly triggered during the boot process.
@@ -25,8 +34,12 @@ The Rooted variant is designed with a "security-first" approach. Root functional
 ### How to Activate Root
 
 1.  Reboot the device.
-2.  When the **GrapheneOS logo** appears, press **Volume Up**.
+2.  When the **GrapheneOS logo** appears (in some models is just little before), press **Volume Up**.
 3.  If the button is not pressed, the kernel will boot without exposing any root functionality.
+4.  If root is not enabled, try rebooting again and when the Google logo appears keep pressing Volume Up at a ratio of 1 press each second until it boots.
+    Only one time press is needed but the window time depends on kernel initialization, so it varies slightly on each model, you will need to practice/learn on your model.
+       Akita on Android 16, around 3rd second after Google logo until 2s after GrapheneOS logo.
+       Mustang or tegu on Android 16/17 it needs to be pressed earlier, before GrapheneOS logo appears.
 
 ### Why On-Demand?
 
@@ -46,7 +59,7 @@ To manage root access, you must boot with root enabled and install the **[SukiSU
 For full system backups via **NeoBackup**, the following SukiSU profile configuration is required:
 
 - **App profile:** `Custom`
-- **Capabilities:** `DAC_OVERRIDE`, `SYS_ADMIN`, `SYS_CHROOT`, `SYS_PTRACE`
+- **Capabilities:** `DAC_OVERRIDE`, `SYS_ADMIN`, `SYS_CHROOT`, `SYS_PTRACE`. To restore some extra permissions:
 - **SELinux context:** `u:r:su:s0`
 
 -----
