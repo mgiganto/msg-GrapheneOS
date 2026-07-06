@@ -37,3 +37,9 @@ Apply each individual patch to its corresponding directory within your GrapheneO
 
 ### Step 3: Recompile
 Perform the final build of your GrapheneOS system to include the appsScopes modifications.
+
+-----
+
+## Building the Kernel
+
+Follow the instructions provided in the [grapheneos_kernel_patch repository](https://github.com/mgiganto/grapheneos_kernel_patch) to apply the kernel patches.
