@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/shiba-ota_update-2026062800-user-rooted.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/shiba-ota_update-2026062800-user-rooted.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/shiba-ota_update-2026070500-user-rooted.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/shiba-ota_update-2026070500-user-rooted.zip.csig"
   },
   "incremental": {
-    "56f13a36b87cef11e5f6337f4038e9ae8e6287510766bdd69091d701e2f96865": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/shiba-incremental-2026062300-2026062800-user-rooted.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/shiba-incremental-2026062300-2026062800-user-rooted.zip.csig"
+    "ce01985ffb17f1d45cb7791e19858ad844617e29906d96ce8ae5b4916a60c8c6": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/shiba-incremental-2026062800-2026070500-user-rooted.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/shiba-incremental-2026062800-2026070500-user-rooted.zip.csig"
     }
   }
 }

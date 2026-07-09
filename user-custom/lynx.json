@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/lynx-ota_update-2026062800-user-custom.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/lynx-ota_update-2026062800-user-custom.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/lynx-ota_update-2026070500-user-custom.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/lynx-ota_update-2026070500-user-custom.zip.csig"
   },
   "incremental": {
-    "25bb9e5bafc6a7a141824564d96377cc7c06c3a8e679ad9d933ac5636228c749": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/lynx-incremental-2026062300-2026062800-user-custom.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026062800/lynx-incremental-2026062300-2026062800-user-custom.zip.csig"
+    "c13e84c8175d66a4218ea5e2b5d672c483a4246d72193670e425a0fd4defc706": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/lynx-incremental-2026062800-2026070500-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/lynx-incremental-2026062800-2026070500-user-custom.zip.csig"
     }
   }
 }
