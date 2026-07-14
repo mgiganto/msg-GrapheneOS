@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/frankel-ota_update-2026070500-user-rooted.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/frankel-ota_update-2026070500-user-rooted.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026071100/frankel-ota_update-2026071100-user-rooted.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026071100/frankel-ota_update-2026071100-user-rooted.zip.csig"
   },
   "incremental": {
-    "c8adc893018fa1716c296d2ddcebe4c68bbe7c5f9ea5d6661cd0ee2793fc4269": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/frankel-incremental-2026062800-2026070500-user-rooted.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/frankel-incremental-2026062800-2026070500-user-rooted.zip.csig"
+    "a0147f5fdab8d51326ea430aae63af510b96545eac1da350bdcb58aaa771115f": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026071100/frankel-incremental-2026070500-2026071100-user-rooted.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026071100/frankel-incremental-2026070500-2026071100-user-rooted.zip.csig"
     }
   }
 }
