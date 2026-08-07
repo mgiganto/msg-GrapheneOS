@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/bluejay-ota_update-2026070500-user-custom.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/bluejay-ota_update-2026070500-user-custom.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/bluejay-ota_update-2026080500-user-custom.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/bluejay-ota_update-2026080500-user-custom.zip.csig"
   },
   "incremental": {
-    "0d4040faad4514f1e2a22f8171173b4cdd1fc4a77400b06622b62728d772f7ec": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/bluejay-incremental-2026062800-2026070500-user-custom.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/bluejay-incremental-2026062800-2026070500-user-custom.zip.csig"
+    "b123b238e312501f75d1d5cb8fdfa43da21973f44ff55c3b6bbe18e23e202d6b": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/bluejay-incremental-2026072900-2026080500-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/bluejay-incremental-2026072900-2026080500-user-custom.zip.csig"
     }
   }
 }

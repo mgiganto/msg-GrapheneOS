@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/komodo-ota_update-2026070500-user-custom.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/komodo-ota_update-2026070500-user-custom.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/komodo-ota_update-2026080500-user-custom.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/komodo-ota_update-2026080500-user-custom.zip.csig"
   },
   "incremental": {
-    "bc250d9c47f7b4597b3453f289fb2ab7e23ba18f40a1817c57f990753437f807": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/komodo-incremental-2026062800-2026070500-user-custom.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/komodo-incremental-2026062800-2026070500-user-custom.zip.csig"
+    "12b0711eb0788009919e56436d16d503b8f33c82549ac10751f4e79eacf81dbf": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/komodo-incremental-2026072900-2026080500-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/komodo-incremental-2026072900-2026080500-user-custom.zip.csig"
     }
   }
 }
