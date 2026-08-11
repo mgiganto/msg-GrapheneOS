@@ -1,8 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026072900/blazer-ota_update-2026072900-user-clean.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026072900/blazer-ota_update-2026072900-user-clean.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/blazer-ota_update-2026080500-user-clean.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/blazer-ota_update-2026080500-user-clean.zip.csig"
   },
-  "incremental": {}
+  "incremental": {
+    "0621ef75a99fe57a156a71094b3d47e0cdf68e18a59241cbdd957b6b8277e833": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/blazer-incremental-2026072900-2026080500-user-clean.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/blazer-incremental-2026072900-2026080500-user-clean.zip.csig"
+    }
+  }
 }

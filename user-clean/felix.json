@@ -1,8 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026072900/felix-ota_update-2026072900-user-clean.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026072900/felix-ota_update-2026072900-user-clean.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/felix-ota_update-2026080500-user-clean.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/felix-ota_update-2026080500-user-clean.zip.csig"
   },
-  "incremental": {}
+  "incremental": {
+    "8e3242d7683c01a09f4118d9ffb4003c0a97f3a5d983eef8c39b3834f63ce7fc": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/felix-incremental-2026072900-2026080500-user-clean.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/felix-incremental-2026072900-2026080500-user-clean.zip.csig"
+    }
+  }
 }
