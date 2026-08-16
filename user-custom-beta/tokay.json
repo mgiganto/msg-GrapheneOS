@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/tokay-ota_update-2026070500-user-custom.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/tokay-ota_update-2026070500-user-custom.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026081300/tokay-ota_update-2026081300-user-custom.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026081300/tokay-ota_update-2026081300-user-custom.zip.csig"
   },
   "incremental": {
-    "9cab18dc6ea581a2241a2d851e779d853c58ea295395df95e924842d295e5909": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/tokay-incremental-2026062800-2026070500-user-custom.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026070500/tokay-incremental-2026062800-2026070500-user-custom.zip.csig"
+    "b2d2fae8658fd4906513e1e885d0d84a32e5fcd57394cd8d0f70c5d44b0bbffb": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026081300/tokay-incremental-2026080500-2026081300-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026081300/tokay-incremental-2026080500-2026081300-user-custom.zip.csig"
     }
   }
 }
