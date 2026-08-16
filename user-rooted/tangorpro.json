@@ -1,13 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/tangorpro-ota_update-2026080500-user-rooted.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/tangorpro-ota_update-2026080500-user-rooted.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026081300/tangorpro-ota_update-2026081300-user-rooted.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026081300/tangorpro-ota_update-2026081300-user-rooted.zip.csig"
   },
   "incremental": {
-    "beeb59a6cfb2f0623803668f6a60cf9a33cc5cb4ed871e85cd20fcbc829a8de9": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/tangorpro-incremental-2026072900-2026080500-user-rooted.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026080500/tangorpro-incremental-2026072900-2026080500-user-rooted.zip.csig"
+    "915ae4c2ce4e3dc82130bc7d9543ead32e75411feefb145575e2d56a0032b3d0": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026081300/tangorpro-incremental-2026080500-2026081300-user-rooted.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026081300/tangorpro-incremental-2026080500-2026081300-user-rooted.zip.csig"
     }
   }
 }
