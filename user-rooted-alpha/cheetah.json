@@ -1,8 +1,13 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026071500/cheetah-ota_update-2026071500-user-rooted.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026071500/cheetah-ota_update-2026071500-user-rooted.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026090500/cheetah-ota_update-2026090500-user-rooted.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026090500/cheetah-ota_update-2026090500-user-rooted.zip.csig"
   },
-  "incremental": {}
+  "incremental": {
+    "fe585fd22e8ca2c83af688c96a7a3a25cbf69819301f9a031e13d0a29ed0be00": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026090500/cheetah-incremental-2026081300-2026090500-user-rooted.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026090500/cheetah-incremental-2026081300-2026090500-user-rooted.zip.csig"
+    }
+  }
 }
