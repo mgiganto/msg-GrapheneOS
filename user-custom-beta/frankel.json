@@ -4,5 +4,10 @@
     "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/frankel-ota_update-2026091000-user-custom.zip",
     "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/frankel-ota_update-2026091000-user-custom.zip.csig"
   },
-  "incremental": {}
+  "incremental": {
+    "03298ca5cb6b98f7f14e52d1202f1fc09acfa1a9b94c2d745ac5930621e36a26": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/frankel-incremental-2026090700-2026091000-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/frankel-incremental-2026090700-2026091000-user-custom.zip.csig"
+    }
+  }
 }

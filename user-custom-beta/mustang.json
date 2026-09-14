@@ -4,5 +4,10 @@
     "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/mustang-ota_update-2026091000-user-custom.zip",
     "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/mustang-ota_update-2026091000-user-custom.zip.csig"
   },
-  "incremental": {}
+  "incremental": {
+    "fcb2df71b38eb90b7e119612dc8eed2afdc9984f6f11f4cefc6f1e91a56fa0e2": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/mustang-incremental-2026090700-2026091000-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/mustang-incremental-2026090700-2026091000-user-custom.zip.csig"
+    }
+  }
 }

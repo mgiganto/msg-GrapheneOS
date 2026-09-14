@@ -4,5 +4,10 @@
     "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/akita-ota_update-2026091000-user-custom.zip",
     "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/akita-ota_update-2026091000-user-custom.zip.csig"
   },
-  "incremental": {}
+  "incremental": {
+    "2093626bde7d114fc469c7c00c033afd4238a056e62b078f44574486f3a6cee5": {
+      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/akita-incremental-2026090700-2026091000-user-custom.zip",
+      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/akita-incremental-2026090700-2026091000-user-custom.zip.csig"
+    }
+  }
 }
