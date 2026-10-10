@@ -1,13 +1,8 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/shiba-ota_update-2026091000-user-custom.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/shiba-ota_update-2026091000-user-custom.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026100600/shiba-ota_update-2026100600-user-custom.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026100600/shiba-ota_update-2026100600-user-custom.zip.csig"
   },
-  "incremental": {
-    "c3815a117a91aba4e96e7ffe28a3b44608f0d2e670d5fdc0b8cca9d5a574fc1a": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/shiba-incremental-2026090700-2026091000-user-custom.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/shiba-incremental-2026090700-2026091000-user-custom.zip.csig"
-    }
-  }
+  "incremental": {}
 }

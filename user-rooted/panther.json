@@ -1,13 +1,8 @@
 {
   "version": 2,
   "full": {
-    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/panther-ota_update-2026091000-user-rooted.zip",
-    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/panther-ota_update-2026091000-user-rooted.zip.csig"
+    "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026100600/panther-ota_update-2026100600-user-rooted.zip",
+    "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026100600/panther-ota_update-2026100600-user-rooted.zip.csig"
   },
-  "incremental": {
-    "f8fba9d596ccaf7daa2119bcf78efbaac5e64165e86ac6456aec76979def4767": {
-      "location_ota": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/panther-incremental-2026090700-2026091000-user-rooted.zip",
-      "location_csig": "https://github.com/mgiganto/msg-GrapheneOS/releases/download/2026091000/panther-incremental-2026090700-2026091000-user-rooted.zip.csig"
-    }
-  }
+  "incremental": {}
 }
